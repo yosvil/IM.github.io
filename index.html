@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Cuestionario IM-09 — Centro académico preuniversitario y asesoría de tesis</title>
+<style>
+  :root{
+    --ink:#1a1a1a;
+    --line:#111;
+    --blue:#1F3864;
+    --lightblue:#DCE6F1;
+    --grey:#f2f2f2;
+    --paper:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:"Georgia","Times New Roman",serif;
+    color:var(--ink);
+    background:#e9e9e9;
+    margin:0;
+    padding:24px 0 60px;
+    font-size:12.5px;
+    line-height:1.35;
+  }
+  .sheet{
+    max-width:800px;
+    margin:0 auto 20px;
+    background:var(--paper);
+    padding:26px 30px 30px;
+    box-shadow:0 0 0 1px #ccc, 0 6px 18px rgba(0,0,0,.15);
+  }
+  .brand{
+    display:flex; align-items:center; justify-content:space-between;
+    border-bottom:2px solid var(--blue);
+    padding-bottom:6px; margin-bottom:10px;
+  }
+  .brand-name{font-weight:bold; color:var(--blue); font-size:15px; letter-spacing:.5px;}
+  .brand-tag{font-style:italic; font-size:11px; color:#444;}
+  .meta-row{display:flex; flex-wrap:wrap; gap:10px 22px; font-size:11.5px; margin-bottom:10px;}
+  .meta-row div{white-space:nowrap;}
+  .fillline{border-bottom:1px solid #333; display:inline-block; min-width:110px;}
+  .txt-input{
+    border:none; border-bottom:1px solid #333; background:transparent;
+    font-family:inherit; font-size:inherit; color:inherit; padding:0 2px 1px;
+    outline:none;
+  }
+  .txt-input:focus{border-bottom:1.5px solid var(--blue); background:#fbfbfb;}
+  .id-section{border:1px solid #999; padding:12px 14px; margin-top:18px; background:#fbfbfb;}
+  .id-grid{display:flex; flex-wrap:wrap; gap:10px 26px; margin-bottom:8px;}
+  .id-grid div{white-space:nowrap;}
+  .box{border:1px solid #999; padding:8px 10px; margin-bottom:10px; font-size:11.5px; background:#fbfbfb;}
+  h1.title{font-size:15px; text-align:center; color:var(--blue); margin:6px 0 14px; text-transform:uppercase; letter-spacing:.5px;}
+  .q{margin:10px 0 12px;}
+  .qnum{font-weight:bold; color:var(--blue);}
+  .qtext{font-weight:bold;}
+  .opts{display:flex; flex-wrap:wrap; gap:6px; margin-top:5px;}
+  .opt{
+    border:1px solid var(--line); padding:4px 8px; display:flex; align-items:center; gap:5px;
+    background:#fff; cursor:pointer; font-size:11.5px;
+  }
+  .opt input{margin:0; accent-color:var(--blue);}
+  .opt.wide{flex:1 1 auto;}
+  .opt.checked{background:var(--lightblue);}
+  table.likert{border-collapse:collapse; width:100%; font-size:10.7px; margin-top:6px;}
+  table.likert th, table.likert td{border:1px solid #999; text-align:center; padding:3px 2px;}
+  table.likert th{background:var(--blue); color:#fff; font-weight:normal;}
+  table.likert td.label{text-align:left; padding-left:6px; font-weight:normal;}
+  .arrow{color:var(--blue); font-weight:bold; padding:0 4px;}
+  .flowline{display:flex; align-items:center; flex-wrap:wrap; gap:4px;}
+  .rangos-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:4px; font-size:11px; margin-top:6px;}
+  .rangos-grid .opt{padding:3px 5px;}
+  .section-title{
+    background:var(--blue); color:#fff; font-weight:bold; padding:5px 10px;
+    margin:18px 0 10px; font-size:12.5px; letter-spacing:.3px;
+  }
+  .note{font-style:italic; color:#555; font-size:10.7px; margin:4px 0 10px;}
+  .hidden{display:none;}
+  .footer-line{margin-top:16px; font-size:11.5px;}
+  .footer-line .fillline{min-width:220px;}
+  textarea.email{border:1px solid #999; width:220px; font-size:11px; padding:2px 4px;}
+  .obs-fill{border:1px solid #999; padding:6px; min-height:18px; font-size:11.5px;}
+  .toolbar{
+    max-width:800px; margin:0 auto 14px; display:flex; gap:10px; justify-content:flex-end;
+  }
+  .toolbar button{
+    font-family:Arial, sans-serif; font-size:12px; padding:7px 14px; border:none;
+    background:var(--blue); color:#fff; cursor:pointer; border-radius:3px;
+  }
+  .toolbar button:hover{opacity:.9;}
+  @media print{
+    body{background:#fff; padding:0;}
+    .toolbar{display:none;}
+    .sheet{box-shadow:none; margin:0; max-width:100%; padding:14px 18px;}
+    .section-title{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    table.likert th{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button type="button" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+  <button type="button" onclick="resetForm()">↺ Limpiar respuestas</button>
+  <button type="button" onclick="guardarEncuesta()">💾 Guardar</button>
+</div>
+
+<form class="sheet" id="encuesta">
+
+  <div class="brand">
+    <div class="brand-name">ESTUDIO IM-09 · 2026</div>
+    <div class="brand-tag">Investigación de Mercado — Centro académico preuniversitario y asesoría en tesis</div>
+  </div>
+
+  <h1 class="title">Cuestionario final — Versión aplicable en campo</h1>
+
+  <div class="box">
+    <b>Presentación:</b> Buenos días/tardes. Somos parte de un equipo de investigación de mercado de la Universidad Nacional Hermilio Valdizán. Realizamos un estudio sobre preparación preuniversitaria y asesoría de tesis, con fines académicos y confidenciales.<br>
+    <b>Objetivo:</b> Recabar información sobre conocimiento, evaluación, expectativas y disposición de pago respecto de estos servicios.<br>
+    <b>Consentimiento:</b>
+    <label class="opt" style="display:inline-flex;"><input type="radio" name="consent" value="si"> 1. Acepta</label>
+    <label class="opt" style="display:inline-flex;"><input type="radio" name="consent" value="no"> 2. No acepta (finalizar)</label>
+  </div>
+
+  <!-- ===================== FILTRO ===================== -->
+  <div class="section-title">FILTRO Y DATOS GENERALES</div>
+
+  <div class="q">
+    <span class="qnum">F1.</span> <span class="qtext">¿Te encuentras actualmente preparándote (o piensas prepararte en los próximos 12 meses) para un examen de admisión, o cursando/culminando una tesis universitaria?</span>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="F1" value="pre" onchange="toggleBloques()"> 1. Preuniversitario</label>
+      <label class="opt"><input type="radio" name="F1" value="tes" onchange="toggleBloques()"> 2. Tesista</label>
+      <label class="opt"><input type="radio" name="F1" value="no" onchange="toggleBloques()"> 3. Ninguna de las anteriores (finalizar)</label>
+    </div>
+  </div>
+
+  <div class="q" style="display:flex; gap:22px; flex-wrap:wrap;">
+    <div><span class="qnum">D1.</span> Edad: <input type="number" min="14" max="35" class="txt-input" style="width:55px;" name="D1"> años</div>
+    <div><span class="qnum">D2.</span> Sexo:
+      <label class="opt" style="display:inline-flex;"><input type="radio" name="D2"> H</label>
+      <label class="opt" style="display:inline-flex;"><input type="radio" name="D2"> M</label>
+      <label class="opt" style="display:inline-flex;"><input type="radio" name="D2"> Prefiere no decir</label>
+    </div>
+  </div>
+  <div class="q" style="display:flex; gap:22px; flex-wrap:wrap;">
+    <div><span class="qnum">D3.</span> Distrito de residencia: <input type="text" class="txt-input" style="width:180px;" name="D3"></div>
+    <div><span class="qnum">D4.</span> Institución educativa / universidad de procedencia: <input type="text" class="txt-input" style="width:220px;" name="D4"></div>
+  </div>
+  <div class="note">Nota de flujo: si F1 = "Ninguna de las anteriores", agradecer y finalizar. Si F1 = "Preuniversitario" continuar en el Bloque A; si F1 = "Tesista" continuar en el Bloque B. Ambos continúan luego en el Bloque C.</div>
+
+  <!-- ===================== BLOQUE A ===================== -->
+  <div id="bloqueA" class="hidden">
+    <div class="section-title">BLOQUE A — SEGMENTO PREUNIVERSITARIO</div>
+
+    <div class="q"><span class="qnum">A1.</span> <span class="qtext">¿Conoces alguna academia preuniversitaria en la ciudad?</span>
+      <div class="opts"><label class="opt"><input type="radio" name="A1"> 1. Sí</label><label class="opt"><input type="radio" name="A1"> 2. No</label></div>
+    </div>
+
+    <div class="q"><span class="qnum">A2.</span> <span class="qtext">¿Cómo calificarías, en general, a las academias que conoces?</span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="A2"> 1. Muy mala</label>
+        <label class="opt"><input type="radio" name="A2"> 2. Mala</label>
+        <label class="opt"><input type="radio" name="A2"> 3. Regular</label>
+        <label class="opt"><input type="radio" name="A2"> 4. Buena</label>
+        <label class="opt"><input type="radio" name="A2"> 5. Muy buena</label>
+      </div>
+    </div>
+
+    <div class="q"><span class="qnum">A3.</span> <span class="qtext">¿Cuántas veces has postulado (o piensas postular) a una universidad?</span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="A3"> Ninguna aún</label>
+        <label class="opt"><input type="radio" name="A3"> 1 vez</label>
+        <label class="opt"><input type="radio" name="A3"> 2 veces</label>
+        <label class="opt"><input type="radio" name="A3"> 3 o más</label>
+      </div>
+    </div>
+
+    <div class="q"><span class="qnum">A4.</span> <span class="qtext">Actualmente, ¿te encuentras preparándote en alguna academia?</span>
+      <div class="opts"><label class="opt"><input type="radio" name="A4"> 1. Sí</label><label class="opt"><input type="radio" name="A4"> 2. No</label></div>
+    </div>
+
+    <div class="q"><span class="qnum">A5.</span> <span class="qtext">¿Qué tan satisfecho(a) estás con la preparación que recibes o recibiste?</span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="A5"> 1. Muy insatisfecho</label>
+        <label class="opt"><input type="radio" name="A5"> 2. Insatisfecho</label>
+        <label class="opt"><input type="radio" name="A5"> 3. Regular</label>
+        <label class="opt"><input type="radio" name="A5"> 4. Satisfecho</label>
+        <label class="opt"><input type="radio" name="A5"> 5. Muy satisfecho</label>
+      </div>
+    </div>
+
+    <div class="q"><span class="qnum">A6.</span> <span class="qtext">Califica del 1 al 5 la importancia de cada atributo al elegir una academia (1 = nada importante, 5 = muy importante):</span>
+      <table class="likert">
+        <tr><th style="text-align:left; background:var(--blue);">Atributo</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+        <tr><td class="label">Docentes</td><td><input type="radio" name="A6_1"></td><td><input type="radio" name="A6_1"></td><td><input type="radio" name="A6_1"></td><td><input type="radio" name="A6_1"></td><td><input type="radio" name="A6_1"></td></tr>
+        <tr><td class="label">Material de estudio</td><td><input type="radio" name="A6_2"></td><td><input type="radio" name="A6_2"></td><td><input type="radio" name="A6_2"></td><td><input type="radio" name="A6_2"></td><td><input type="radio" name="A6_2"></td></tr>
+        <tr><td class="label">Simulacros de examen</td><td><input type="radio" name="A6_3"></td><td><input type="radio" name="A6_3"></td><td><input type="radio" name="A6_3"></td><td><input type="radio" name="A6_3"></td><td><input type="radio" name="A6_3"></td></tr>
+        <tr><td class="label">Horarios</td><td><input type="radio" name="A6_4"></td><td><input type="radio" name="A6_4"></td><td><input type="radio" name="A6_4"></td><td><input type="radio" name="A6_4"></td><td><input type="radio" name="A6_4"></td></tr>
+        <tr><td class="label">Modalidad</td><td><input type="radio" name="A6_5"></td><td><input type="radio" name="A6_5"></td><td><input type="radio" name="A6_5"></td><td><input type="radio" name="A6_5"></td><td><input type="radio" name="A6_5"></td></tr>
+        <tr><td class="label">Ubicación</td><td><input type="radio" name="A6_6"></td><td><input type="radio" name="A6_6"></td><td><input type="radio" name="A6_6"></td><td><input type="radio" name="A6_6"></td><td><input type="radio" name="A6_6"></td></tr>
+        <tr><td class="label">Precio</td><td><input type="radio" name="A6_7"></td><td><input type="radio" name="A6_7"></td><td><input type="radio" name="A6_7"></td><td><input type="radio" name="A6_7"></td><td><input type="radio" name="A6_7"></td></tr>
+      </table>
+    </div>
+
+    <div class="q"><span class="qnum">A7.</span> <span class="qtext">¿Qué modalidad prefieres para tus clases?</span>
+      <div class="opts"><label class="opt"><input type="radio" name="A7"> 1. Presencial</label><label class="opt"><input type="radio" name="A7"> 2. Virtual</label><label class="opt"><input type="radio" name="A7"> 3. Híbrida</label></div>
+    </div>
+
+    <div class="q"><span class="qnum">A8.</span> <span class="qtext">¿En qué horario preferirías asistir?</span>
+      <div class="opts"><label class="opt"><input type="radio" name="A8"> Mañana</label><label class="opt"><input type="radio" name="A8"> Tarde</label><label class="opt"><input type="radio" name="A8"> Noche</label><label class="opt"><input type="radio" name="A8"> Fin de semana</label></div>
+    </div>
+
+    <div class="q"><span class="qnum">A9.</span> <span class="qtext">Si se implementara un nuevo centro de preparación con docentes especializados y simulacros permanentes, ¿cuál sería tu intención de matricularte?</span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="A9" value="1" onchange="toggleDisp('A')"> 1. Definitivamente no</label>
+        <label class="opt"><input type="radio" name="A9" value="2" onchange="toggleDisp('A')"> 2. Probablemente no</label>
+        <label class="opt"><input type="radio" name="A9" value="3" onchange="toggleDisp('A')"> 3. Indeciso</label>
+        <label class="opt"><input type="radio" name="A9" value="4" onchange="toggleDisp('A')"> 4. Probablemente sí</label>
+        <label class="opt"><input type="radio" name="A9" value="5" onchange="toggleDisp('A')"> 5. Definitivamente sí</label>
+      </div>
+    </div>
+
+    <div id="dispA" class="hidden">
+      <div class="q"><span class="qnum">A10.</span> <span class="qtext">(Solo si A9 = 3, 4 o 5) ¿Cuánto pagarías mensualmente por ese servicio?</span>
+        <div class="rangos-grid">
+          <label class="opt"><input type="radio" name="A10"> 1. Menos de S/.100</label>
+          <label class="opt"><input type="radio" name="A10"> 2. S/.100-149</label>
+          <label class="opt"><input type="radio" name="A10"> 3. S/.150-199</label>
+          <label class="opt"><input type="radio" name="A10"> 4. S/.200-249</label>
+          <label class="opt"><input type="radio" name="A10"> 5. S/.250-299</label>
+          <label class="opt"><input type="radio" name="A10"> 6. S/.300-349</label>
+          <label class="opt"><input type="radio" name="A10"> 7. S/.350 a más</label>
+        </div>
+      </div>
+      <div class="q"><span class="qnum">A11.</span> <span class="qtext">¿Qué modalidad de pago preferirías?</span>
+        <div class="opts"><label class="opt"><input type="radio" name="A11"> 1. Pago único</label><label class="opt"><input type="radio" name="A11"> 2. Pago fraccionado/mensual</label></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== BLOQUE B ===================== -->
+  <div id="bloqueB" class="hidden">
+    <div class="section-title">BLOQUE B — SEGMENTO TESISTA</div>
+
+    <div class="q"><span class="qnum">B1.</span> <span class="qtext">¿Conoces algún servicio de asesoría de tesis en la ciudad?</span>
+      <div class="opts"><label class="opt"><input type="radio" name="B1"> 1. Sí</label><label class="opt"><input type="radio" name="B1"> 2. No</label></div>
+    </div>
+
+    <div class="q"><span class="qnum">B2.</span> <span class="qtext">¿Cómo calificarías, en general, a los servicios de asesoría que conoces?</span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="B2"> 1. Muy mala</label>
+        <label class="opt"><input type="radio" name="B2"> 2. Mala</label>
+        <label class="opt"><input type="radio" name="B2"> 3. Regular</label>
+        <label class="opt"><input type="radio" name="B2"> 4. Buena</label>
+        <label class="opt"><input type="radio" name="B2"> 5. Muy buena</label>
+      </div>
+    </div>
+
+    <div class="q"><span class="qnum">B3.</span> <span class="qtext">¿En qué etapa de tu tesis te encuentras?</span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="B3"> Perfil</label>
+        <label class="opt"><input type="radio" name="B3"> Proyecto</label>
+        <label class="opt"><input type="radio" name="B3"> Ejecución/campo</label>
+        <label class="opt"><input type="radio" name="B3"> Informe final</label>
+        <label class="opt"><input type="radio" name="B3"> Sustentación</label>
+      </div>
+    </div>
+
+    <div class="q"><span class="qnum">B4.</span> <span class="qtext">¿Cuál ha sido tu principal dificultad en el proceso de tesis?</span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="B4"> Metodología</label>
+        <label class="opt"><input type="radio" name="B4"> Estadística</label>
+        <label class="opt"><input type="radio" name="B4"> Redacción</label>
+        <label class="opt"><input type="radio" name="B4"> Tiempo/organización</label>
+        <label class="opt"><input type="radio" name="B4"> Originalidad/Turnitin</label>
+      </div>
+    </div>
+
+    <div class="q"><span class="qnum">B5.</span> <span class="qtext">¿Qué tan satisfecho(a) estás con el apoyo metodológico recibido hasta ahora?</span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="B5"> 1. Muy insatisfecho</label>
+        <label class="opt"><input type="radio" name="B5"> 2. Insatisfecho</label>
+        <label class="opt"><input type="radio" name="B5"> 3. Regular</label>
+        <label class="opt"><input type="radio" name="B5"> 4. Satisfecho</label>
+        <label class="opt"><input type="radio" name="B5"> 5. Muy satisfecho</label>
+      </div>
+    </div>
+
+    <div class="q"><span class="qnum">B6.</span> <span class="qtext">Califica del 1 al 5 la importancia de cada atributo al elegir un asesor de tesis:</span>
+      <table class="likert">
+        <tr><th style="text-align:left; background:var(--blue);">Atributo</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+        <tr><td class="label">Experiencia del asesor</td><td><input type="radio" name="B6_1"></td><td><input type="radio" name="B6_1"></td><td><input type="radio" name="B6_1"></td><td><input type="radio" name="B6_1"></td><td><input type="radio" name="B6_1"></td></tr>
+        <tr><td class="label">Dominio estadístico</td><td><input type="radio" name="B6_2"></td><td><input type="radio" name="B6_2"></td><td><input type="radio" name="B6_2"></td><td><input type="radio" name="B6_2"></td><td><input type="radio" name="B6_2"></td></tr>
+        <tr><td class="label">Acompañamiento en redacción</td><td><input type="radio" name="B6_3"></td><td><input type="radio" name="B6_3"></td><td><input type="radio" name="B6_3"></td><td><input type="radio" name="B6_3"></td><td><input type="radio" name="B6_3"></td></tr>
+        <tr><td class="label">Cumplimiento de plazos</td><td><input type="radio" name="B6_4"></td><td><input type="radio" name="B6_4"></td><td><input type="radio" name="B6_4"></td><td><input type="radio" name="B6_4"></td><td><input type="radio" name="B6_4"></td></tr>
+        <tr><td class="label">Revisión de originalidad (Turnitin)</td><td><input type="radio" name="B6_5"></td><td><input type="radio" name="B6_5"></td><td><input type="radio" name="B6_5"></td><td><input type="radio" name="B6_5"></td><td><input type="radio" name="B6_5"></td></tr>
+        <tr><td class="label">Precio</td><td><input type="radio" name="B6_6"></td><td><input type="radio" name="B6_6"></td><td><input type="radio" name="B6_6"></td><td><input type="radio" name="B6_6"></td><td><input type="radio" name="B6_6"></td></tr>
+      </table>
+    </div>
+
+    <div class="q"><span class="qnum">B7.</span> <span class="qtext">¿Qué modalidad prefieres para recibir la asesoría?</span>
+      <div class="opts"><label class="opt"><input type="radio" name="B7"> 1. Presencial</label><label class="opt"><input type="radio" name="B7"> 2. Virtual</label><label class="opt"><input type="radio" name="B7"> 3. Híbrida</label></div>
+    </div>
+
+    <div class="q"><span class="qnum">B8.</span> <span class="qtext">¿Con qué frecuencia consideras necesario recibir sesiones de asesoría?</span>
+      <div class="opts"><label class="opt"><input type="radio" name="B8"> Semanal</label><label class="opt"><input type="radio" name="B8"> Quincenal</label><label class="opt"><input type="radio" name="B8"> Mensual</label><label class="opt"><input type="radio" name="B8"> Solo puntual</label></div>
+    </div>
+
+    <div class="q"><span class="qnum">B9.</span> <span class="qtext">Si se implementara un servicio especializado de asesoría integral (metodológica, estadística y de redacción), ¿cuál sería tu intención de contratarlo?</span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="B9" value="1" onchange="toggleDisp('B')"> 1. Definitivamente no</label>
+        <label class="opt"><input type="radio" name="B9" value="2" onchange="toggleDisp('B')"> 2. Probablemente no</label>
+        <label class="opt"><input type="radio" name="B9" value="3" onchange="toggleDisp('B')"> 3. Indeciso</label>
+        <label class="opt"><input type="radio" name="B9" value="4" onchange="toggleDisp('B')"> 4. Probablemente sí</label>
+        <label class="opt"><input type="radio" name="B9" value="5" onchange="toggleDisp('B')"> 5. Definitivamente sí</label>
+      </div>
+    </div>
+
+    <div id="dispB" class="hidden">
+      <div class="q"><span class="qnum">B10.</span> <span class="qtext">(Solo si B9 = 3, 4 o 5) ¿Cuánto pagarías por el servicio (sesión o paquete completo)?</span>
+        <div class="rangos-grid">
+          <label class="opt"><input type="radio" name="B10"> 1. Menos de S/.50 (sesión)</label>
+          <label class="opt"><input type="radio" name="B10"> 2. S/.50-99 (sesión)</label>
+          <label class="opt"><input type="radio" name="B10"> 3. S/.100-149 (sesión)</label>
+          <label class="opt"><input type="radio" name="B10"> 4. S/.150 a más (sesión)</label>
+          <label class="opt"><input type="radio" name="B10"> 5. Paquete básico</label>
+          <label class="opt"><input type="radio" name="B10"> 6. Paquete integral</label>
+          <label class="opt"><input type="radio" name="B10"> 7. Paquete integral + estadística</label>
+        </div>
+      </div>
+      <div class="q"><span class="qnum">B11.</span> <span class="qtext">¿Qué modalidad de pago preferirías?</span>
+        <div class="opts"><label class="opt"><input type="radio" name="B11"> 1. Pago único</label><label class="opt"><input type="radio" name="B11"> 2. Pago fraccionado/por sesión</label></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== BLOQUE C ===================== -->
+  <div id="bloqueC" class="hidden">
+    <div class="section-title">BLOQUE C — COMÚN A AMBOS SEGMENTOS</div>
+
+    <div class="q"><span class="qnum">C1.</span> <span class="qtext">¿A través de qué medio sueles informarte sobre academias o servicios de asesoría? (marca todos los que apliquen)</span>
+      <div class="opts">
+        <label class="opt"><input type="checkbox"> Redes sociales</label>
+        <label class="opt"><input type="checkbox"> Recomendación personal</label>
+        <label class="opt"><input type="checkbox"> Publicidad exterior</label>
+        <label class="opt"><input type="checkbox"> Buscadores de internet</label>
+        <label class="opt"><input type="checkbox"> Ferias / charlas</label>
+        <label class="opt"><input type="checkbox"> Otros</label>
+      </div>
+    </div>
+
+    <div class="q"><span class="qnum">C2.</span> <span class="qtext">¿Qué academia o servicio de asesoría es el primero que viene a tu mente?</span>
+      <input type="text" class="txt-input" style="width:280px;" name="C2">
+    </div>
+
+    <div class="q"><span class="qnum">C3.</span> <span class="qtext">En una escala de 0 a 10, ¿qué tan probable es que recomiendes este nuevo servicio a un familiar o amigo?</span>
+      <div class="opts">
+        <label class="opt">0</label><label class="opt"><input type="radio" name="C3"></label>
+        <label class="opt">1</label><label class="opt"><input type="radio" name="C3"></label>
+        <label class="opt">2</label><label class="opt"><input type="radio" name="C3"></label>
+        <label class="opt">3</label><label class="opt"><input type="radio" name="C3"></label>
+        <label class="opt">4</label><label class="opt"><input type="radio" name="C3"></label>
+        <label class="opt">5</label><label class="opt"><input type="radio" name="C3"></label>
+        <label class="opt">6</label><label class="opt"><input type="radio" name="C3"></label>
+        <label class="opt">7</label><label class="opt"><input type="radio" name="C3"></label>
+        <label class="opt">8</label><label class="opt"><input type="radio" name="C3"></label>
+        <label class="opt">9</label><label class="opt"><input type="radio" name="C3"></label>
+        <label class="opt">10</label><label class="opt"><input type="radio" name="C3"></label>
+      </div>
+    </div>
+
+    <div class="q"><span class="qnum">C4.</span> <span class="qtext">¿Qué factor consideras más determinante para decidir entre dos opciones similares?</span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="C4"> Precio</label>
+        <label class="opt"><input type="radio" name="C4"> Calidad/resultados</label>
+        <label class="opt"><input type="radio" name="C4"> Ubicación</label>
+        <label class="opt"><input type="radio" name="C4"> Recomendación de terceros</label>
+        <label class="opt"><input type="radio" name="C4"> Horarios/modalidad</label>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:14px;">Muchas gracias por su tiempo y colaboración. Sus respuestas serán tratadas de forma anónima y agregada.</div>
+  </div>
+
+  <!-- ===================== IDENTIFICACIÓN Y CONTROL (AL FINAL) ===================== -->
+  <div class="id-section">
+    <div class="section-title" style="margin-top:0;">IDENTIFICACIÓN Y CONTROL (completar al finalizar la entrevista)</div>
+    <div class="id-grid">
+      <div>Código del estudio: <input type="text" class="txt-input" style="width:110px;" name="codigo" value="IM-09-2026"></div>
+      <div>Encuesta N°: <input type="text" class="txt-input" style="width:80px;" name="encuestaN"></div>
+      <div>Fecha/Hora: <input type="text" class="txt-input" style="width:150px;" name="fechaHora" placeholder="dd/mm/aaaa hh:mm"></div>
+      <div>Encuestador(a): <input type="text" class="txt-input" style="width:160px;" name="encuestador"></div>
+    </div>
+    <div class="id-grid">
+      <div>Nombre y apellido del encuestado (opcional): <input type="text" class="txt-input" style="width:220px;" name="nombre"></div>
+    </div>
+    <div class="id-grid">
+      <div>Rubro/carrera (por observación u opcional): <input type="text" class="txt-input" style="width:200px;" name="rubro"></div>
+      <div>Correo electrónico (opcional): <input type="text" class="txt-input" style="width:200px;" name="correo"></div>
+    </div>
+  </div>
+
+</form>
+
+<script>
+function toggleBloques(){
+  const val = document.querySelector('input[name="F1"]:checked')?.value;
+  document.getElementById('bloqueA').classList.toggle('hidden', val !== 'pre');
+  document.getElementById('bloqueB').classList.toggle('hidden', val !== 'tes');
+  document.getElementById('bloqueC').classList.toggle('hidden', !(val === 'pre' || val === 'tes'));
+}
+function toggleDisp(seg){
+  const val = document.querySelector('input[name="'+seg+'9"]:checked')?.value;
+  document.getElementById('disp'+seg).classList.toggle('hidden', !(val === '3' || val === '4' || val === '5'));
+}
+function resetForm(){
+  document.getElementById('encuesta').reset();
+  document.getElementById('bloqueA').classList.add('hidden');
+  document.getElementById('bloqueB').classList.add('hidden');
+  document.getElementById('bloqueC').classList.add('hidden');
+  document.getElementById('dispA').classList.add('hidden');
+  document.getElementById('dispB').classList.add('hidden');
+}
+function guardarEncuesta(){
+  alert('✅ Encuesta guardada correctamente.');
+  resetForm();
+}
+</script>
+</body>
+</html>
