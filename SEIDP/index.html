@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SEIDP – Evaluación integral del desarrollo personal</title><link rel="stylesheet" href="css/styles.css"></head><body>
+<header><img src="assets/logo.svg" alt="Logotipo SEIDP"><h1>Sistema de Evaluación Integral del Desarrollo Personal</h1><button class="sec" id="btnNew">Nueva evaluación / Reiniciar sistema</button></header><div id="prog"></div>
+<main>
+<section class="card"><h2>Privacidad</h2><p>Esta página no usa base de datos, cuentas ni servicios externos. Tus respuestas viven solo en la memoria mientras la página está abierta; cerrar o recargar las elimina. El PDF descargado queda bajo tu control. Todas las preguntas son opcionales: lo que dejes en blanco no cuenta como cero. Es una autoevaluación informativa, no un diagnóstico.</p></section>
+<form id="form" novalidate>
+<section class="card"><h2>1. Información general (opcional)</h2>
+<div class="q"><label for="alias">Nombre o alias</label><input id="alias" maxlength="60"></div>
+<div class="q"><label for="ocup">Ocupación principal</label><input id="ocup" maxlength="80"></div>
+<div class="q"><label for="fecha">Fecha de evaluación</label><input type="date" id="fecha"></div>
+<div class="q"><label for="periodo">Periodo a evaluar</label><input id="periodo" placeholder="Ej.: últimos 3 meses" maxlength="60"></div></section>
+<div id="qs"></div>
+<section class="card"><h2>Finanzas personales (opcional)</h2><div class="q"><label for="inc">Ingresos mensuales</label><input type="number" min="0" step="any" id="inc"></div><div class="q"><label for="exp">Gastos mensuales</label><input type="number" min="0" step="any" id="exp"></div><small>Se calcula la tasa de ahorro. No es un diagnóstico de solvencia.</small></section>
+<section class="card"><h2>Objetivos</h2><small>Registra entre 3 y 10 (o más). Meta cuantificable y avance actual en la misma unidad.</small><div id="goals"></div><button type="button" class="sec" id="addG">Agregar objetivo</button></section>
+<section class="card"><h2>Revisar y calcular</h2><p id="errs" class="err" role="alert"></p><p id="review"></p><button type="submit">Calcular mi evaluación</button></section></form>
+<section id="dash" class="hide"><div class="card hero"><div><div class="gw"><canvas id="cg"></canvas><div class="gv" id="gv"></div></div><div id="meta" style="text-align:center;margin-top:8px"></div></div><div class="dm" id="dm"></div></div>
+<div class="g2" style="margin:12px 0"><div class="card"><h2>Rueda de desarrollo</h2><canvas id="cr"></canvas></div><div class="card"><h2>Ranking de indicadores</h2><canvas id="cb"></canvas></div></div>
+<div class="g2"><div class="card"><h2>Objetivos</h2><canvas id="cgo" height="150"></canvas><div class="gl" id="gl"></div></div><div class="card"><h2>Fortalezas</h2><div id="st"></div><h2 style="margin-top:14px">Prioridades</h2><div id="pr"></div></div></div>
+<div class="card"><h2>Plan de acción</h2><div id="recs"></div></div>
+<div class="card acts"><label><input type="checkbox" id="hideSens"> Excluir nombre y finanzas del PDF</label><p><button id="btnPdf">Descargar informe de evaluación en PDF</button></p><small>Modelo propio y orientativo; no es diagnóstico ni escala validada. Metodología en docs/ y en el PDF.</small></div></section></main>
+<script src="vendor/chart.umd.js"></script><script src="vendor/jspdf.umd.min.js"></script><script src="vendor/jspdf.plugin.autotable.min.js"></script>
+<script src="js/evaluation.js"></script><script src="js/app.js"></script></body></html>

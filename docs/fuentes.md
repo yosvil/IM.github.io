@@ -1,0 +1,3 @@
+- https://www.who.int/es/publications/m/item/WHO-UCN-MSD-MHE-2024.01
+- https://www.oecd.org/en/data/tools/well-being-data-monitor.html
+- https://www.ifrs.org/issued-standards/integrated-reporting/faqs/
